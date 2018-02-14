@@ -153,7 +153,7 @@ class c2c_PostAuthorIP {
 	 * @since 1.0
 	 */
 	public static function admin_css() {
-		echo "<style type='text/css'>.fixed .column-" . self::$field . " {width:10%;}
+		echo "<style type='text/css'>.fixed .column-" . self::$field . " {width:14%;}
 			#c2c-post-author-ip {font-weight:600;}
 			</style>\n";
 	}
