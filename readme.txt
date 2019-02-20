@@ -53,9 +53,96 @@ In the upper-right of the page is a "Screen Options" link that reveals a panel o
 Yes.
 
 
+== Hooks ==
+
+The plugin is further customizable via three filters. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
+
+**c2c_show_post_author_ip_column (filter)**
+
+The 'c2c_show_post_author_ip_column' filter allows you to determine if the post author IP column should appear in the admin post listing table. Your hooking function can be sent 1 argument:
+
+Argument :
+
+* $show_column (bool) Should the column be shown? Default true.
+
+Example:
+
+`
+/**
+ * Don't show the post author IP column except to admins.
+ *
+ * @param bool $show_column Should the column be shown? Default true.
+ * @return bool
+ */
+function post_author_ip_column_admin_only( $show ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		$show = false;
+	}
+	return $show;
+}
+add_filter( 'c2c_show_post_author_ip_column', 'post_author_ip_column_admin_only' );
+`
+
+**c2c_get_post_author_ip (filter)**
+
+The 'c2c_get_post_author_ip' filter allows you to customize the value stored as the post author IP address. Your hooking function can be sent 2 arguments:
+
+Arguments :
+
+* $ip (string)   The post author IP address.
+* $post_id (int) The post ID.
+
+Example:
+
+`
+/**
+ * Store all IP addresses from local subnet IP addresses as the same IP address.
+ *
+ * @param string $ip      The post author IP address.
+ * @param int    $post_id The post ID.
+ * @return string
+ */
+function customize_post_author_ip( $ip, $post_id ) {
+	if ( 0 === strpos( $ip, '192.168.' ) ) {
+		$ip = '192.168.1.1';
+	}
+	return $ip;
+}
+add_filter( 'c2c_get_post_author_ip', 'customize_post_author_ip', 10, 2 );
+`
+
+**c2c_get_current_user_ip (filter)**
+
+The 'c2c_get_current_user_ip' filter allows you to customize the current user's IP address, as used by the plugin. Your hooking function can be sent 1 argument:
+
+Argument :
+
+* $ip (string)   The post author IP address.
+
+Example:
+
+`
+/**
+ * Overrides localhost IP address.
+ *
+ * @param string $ip      The post author IP address.
+ * @param int    $post_id The post ID.
+ * @return string
+ */
+function customize_post_author_ip( $ip, $post_id ) {
+	if ( 0 === strpos( $ip, '192.168.' ) ) {
+		$ip = '192.168.1.1';
+	}
+	return $ip;
+}
+add_filter( 'c2c_get_post_author_ip', 'customize_post_author_ip', 10, 2 );
+`
+
+
 == Changelog ==
 
 = () =
+* New: Add 'Hooks' section to readme with full documentation and examples for hooks
 * New: Add inline documentation for hooks
 * Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)
