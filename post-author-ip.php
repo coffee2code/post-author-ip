@@ -129,7 +129,7 @@ class c2c_PostAuthorIP {
 	 *
 	 * @return bool
 	 */
-	private static function include_column() {
+	public static function include_column() {
 		/**
 		 * Filters to determine if post author IP column show appear in the admin
 		 * post listing table.
