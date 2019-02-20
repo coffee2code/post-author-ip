@@ -55,6 +55,9 @@ Yes.
 
 == Changelog ==
 
+= () =
+* Change: Update copyright date (2019)
+
 = 1.0 (2018-01-24) =
 * Initial public release
 
