@@ -10,7 +10,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: Records the IP address of the original post author when a post first gets created.
  *
- * Compatible with WordPress 4.6 through 4.9+.
+ * Compatible with WordPress 4.6 through 5.1+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
