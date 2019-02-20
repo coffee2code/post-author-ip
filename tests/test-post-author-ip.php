@@ -31,6 +31,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		parent::tearDown();
 		$this->unset_current_user();
 
+		remove_filter( 'c2c_show_post_author_ip_column', '__return_false' );
 		remove_filter( 'c2c_post_author_ip', array( $this, 'c2c_post_author_ip' ) );
 		remove_filter( 'c2c_post_author_ip_allowed', array( $this, 'c2c_post_author_ip_allowed' ) );
 	}
@@ -224,6 +225,18 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$_SERVER['REMOTE_ADDR'] = $ip;
 
 		$this->assertEquals( $ip , c2c_PostAuthorIP::get_current_user_ip() );
+	}
+
+	/*
+	 * Filter: c2c_show_post_author_ip_column
+	 */
+
+	public function test_filter_c2c_show_post_author_ip_column() {
+		$this->assertTrue( c2c_PostAuthorIP::include_column() );
+
+		add_filter( 'c2c_show_post_author_ip_column', '__return_false' );
+
+		$this->assertFalse( c2c_PostAuthorIP::include_column() );
 	}
 
 	/*
