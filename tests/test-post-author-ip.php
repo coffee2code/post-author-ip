@@ -33,6 +33,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 		remove_filter( 'c2c_show_post_author_ip_column', '__return_false' );
 		remove_filter( 'c2c_post_author_ip', array( $this, 'c2c_post_author_ip' ) );
+		remove_filter( 'c2c_get_current_user_ip', array( $this, 'c2c_post_author_ip' ) );
 		remove_filter( 'c2c_post_author_ip_allowed', array( $this, 'c2c_post_author_ip_allowed' ) );
 	}
 
