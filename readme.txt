@@ -57,6 +57,7 @@ Yes.
 
 = () =
 * Change: Update copyright date (2019)
+* Change: Update License URI to be HTTPS
 
 = 1.0 (2018-01-24) =
 * Initial public release
