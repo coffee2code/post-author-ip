@@ -177,6 +177,7 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 * New: Add inline documentation for hooks
 * New: Add back-compatibility for PHPUnit older than 6
 * New: Add unit test for 'c2c_show_post_author_ip_column' filter
+* Change: Cast return value of 'c2c_show_post_author_ip_column' hook as boolean
 * Change: Make `include_column()` public instead of private
 * Change: Note compatibility through WP 5.1+
 * Change: Update copyright date (2019)

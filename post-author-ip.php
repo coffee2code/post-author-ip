@@ -138,7 +138,7 @@ class c2c_PostAuthorIP {
 		 *
 		 * @param bool $show_column Should the column be shown? Default true.
 		 */
-		return apply_filters( 'c2c_show_post_author_ip_column', true );
+		return (bool) apply_filters( 'c2c_show_post_author_ip_column', true );
 	}
 
 	/**
