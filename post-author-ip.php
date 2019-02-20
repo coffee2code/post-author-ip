@@ -80,15 +80,6 @@ class c2c_PostAuthorIP {
 	 * @since 1.0
 	 */
 	public static function init() {
-		add_action( 'init', array( __CLASS__, 'do_init' ) );
-	}
-
-	/**
-	 * Performs initializations on the 'init' action.
-	 *
-	 * @since 1.0
-	 */
-	public static function do_init() {
 		// Load textdomain.
 		load_plugin_textdomain( 'post-author-ip' );
 
