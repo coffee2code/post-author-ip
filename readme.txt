@@ -55,7 +55,7 @@ Yes.
 
 == Hooks ==
 
-The plugin is further customizable via three filters. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
+The plugin is further customizable via four filters. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
 **c2c_show_post_author_ip_column (filter)**
 
@@ -138,10 +138,41 @@ function customize_post_author_ip( $ip, $post_id ) {
 add_filter( 'c2c_get_post_author_ip', 'customize_post_author_ip', 10, 2 );
 `
 
+**c2c_post_author_ip_allowed (filter)**
+
+The 'c2c_post_author_ip_allowed' filter allows you to determine on a per-post basis if the post author IP should be stored. Your hooking function can be sent 3 arguments:
+
+Arguments :
+
+* $allowed (bool) Can post author IP be saved for post? Default true.
+* $post_id (int)  The post ID.
+* $ip (string)    The post author IP address.
+
+Example:
+
+`
+/**
+ * Don't bother storing localhost IP addresses.
+ *
+ * @param bool   $allowed Can post author IP be saved for post? Default true.
+ * @param int    $post_id The post ID.
+ * @param string $ip      The post author IP address.
+ * @return string
+ */
+function disable_localhost_post_author_ips( $allowed, $post_id, $ip ) {
+	if ( $allowed && 0 === strpos( $ip, '192.168.' ) ) {
+		$allowed = false;
+	}
+	return $allowed;
+}
+add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 10, 3 );
+`
+
 
 == Changelog ==
 
 = () =
+* New: Add new filter 'c2c_post_author_ip_allowed' for per-post control of whether post author IP address should be saved
 * New: Add 'Hooks' section to readme with full documentation and examples for hooks
 * New: Add inline documentation for hooks
 * Change: Note compatibility through WP 5.1+

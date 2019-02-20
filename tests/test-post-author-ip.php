@@ -32,6 +32,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->unset_current_user();
 
 		remove_filter( 'c2c_post_author_ip', array( $this, 'c2c_post_author_ip' ) );
+		remove_filter( 'c2c_post_author_ip_allowed', array( $this, 'c2c_post_author_ip_allowed' ) );
 	}
 
 
@@ -85,6 +86,14 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 	public function c2c_post_author_ip( $ip ) {
 		return self::$filter_ip;
+	}
+
+	public function c2c_post_author_ip_allowed( $allowed, $post_id, $ip ) {
+		if ( $_SERVER['REMOTE_ADDR'] === self::$default_ip ) {
+			$allowed = false;
+		}
+
+		return $allowed;
 	}
 
 
@@ -237,6 +246,18 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		add_filter( 'c2c_get_current_user_ip', array( $this, 'c2c_post_author_ip' ) );
 
 		$this->assertEquals( self::$filter_ip , c2c_PostAuthorIP::get_current_user_ip() );
+	}
+
+	/*
+	 * Filter: c2c_post_author_ip_allowed
+	 */
+
+	public function test_filter_c2c_post_author_ip_allowed() {
+		add_filter( 'c2c_post_author_ip_allowed', array( $this, 'c2c_post_author_ip_allowed' ), 10, 3 );
+
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+
+		$this->assertEmpty( c2c_PostAuthorIP::get_post_author_ip( $post_id ) );
 	}
 
 }

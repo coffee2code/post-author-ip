@@ -313,7 +313,20 @@ class c2c_PostAuthorIP {
 		$post = get_post( $post_id );
 
 		if ( $post && $ip ) {
-			update_post_meta( $post->ID, self::$meta_key, filter_var( $ip, FILTER_VALIDATE_IP ) );
+			/**
+			 * Filters whether the post author IP can be stored for the post.
+			 *
+			 * @since 1.1
+			 *
+			 * @param bool   $allowed Can post author IP be saved for post? Default true.
+			 * @param int    $post_id The post ID.
+			 * @param string $ip      The post author IP address.
+			 */
+			$can_store_post_author_id = (bool) apply_filters( 'c2c_post_author_ip_allowed', true, $post_id, $ip );
+
+			if ( $can_store_post_author_id ) {
+				update_post_meta( $post->ID, self::$meta_key, filter_var( $ip, FILTER_VALIDATE_IP ) );
+			}
 		}
 	}
 
