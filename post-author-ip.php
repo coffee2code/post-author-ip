@@ -130,6 +130,14 @@ class c2c_PostAuthorIP {
 	 * @return bool
 	 */
 	private static function include_column() {
+		/**
+		 * Filters to determine if post author IP column show appear in the admin
+		 * post listing table.
+		 *
+		 * @since 1.0
+		 *
+		 * @param bool $show_column Should the column be shown? Default true.
+		 */
 		return apply_filters( 'c2c_show_post_author_ip_column', true );
 	}
 
@@ -249,6 +257,13 @@ class c2c_PostAuthorIP {
 	public static function get_current_user_ip() {
 		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP ) : '';
 
+		/**
+		 * Filters the current user's IP address as used by the plugin.
+		 *
+		 * @since 1.0
+		 *
+		 * @param string $ip The current user's IP address.
+		 */
 		return apply_filters(
 			'c2c_get_current_user_ip',
 			$ip
@@ -268,6 +283,14 @@ class c2c_PostAuthorIP {
 		$post           = get_post( $post_id );
 
 		if ( $post ) {
+			/**
+			 * Filters the post author IP address.
+			 *
+			 * @since 1.0
+			 *
+			 * @param string $ip      The post author IP address.
+			 * @param int    $post_id The post ID.
+			 */
 			$post_author_ip = apply_filters(
 				'c2c_get_post_author_ip',
 				get_post_meta( $post->ID, self::$meta_key, true ),
