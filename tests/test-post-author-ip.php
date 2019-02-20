@@ -146,6 +146,21 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->assertEquals( self::$default_ip, get_post_meta( $post_id, self::$meta_key, true ) );
 	}
 
+	public function test_meta_key_created_for_custom_post_type_created_via_wp_insert_post() {
+		register_post_type( 'job', array( 'label' => 'job' ) );
+		$args = array(
+			'post_author'  => 1,
+			'post_content' => 'Sample post',
+			'post_status'  => 'draft',
+			'post_title'   => 'Sample title',
+			'post_type'    => 'job',
+		);
+
+		$post_id = wp_insert_post( $args );
+
+		$this->assertEquals( self::$default_ip, get_post_meta( $post_id, self::$meta_key, true ) );
+	}
+
 
 	/*
 	 * REST API
