@@ -107,7 +107,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 
 	public function test_plugin_version() {
-		$this->assertEquals( '1.0', c2c_PostAuthorIP::version() );
+		$this->assertEquals( '1.1', c2c_PostAuthorIP::version() );
 	}
 
 	public function test_class_is_available() {

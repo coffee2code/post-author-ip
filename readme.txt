@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 Records the IP address of the original post author when a post first gets created.
 
@@ -171,7 +171,7 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 
 == Changelog ==
 
-= () =
+= 1.1 (2019-02-20) =
 * New: Add new filter 'c2c_post_author_ip_allowed' for per-post control of whether post author IP address should be saved
 * New: Add 'Hooks' section to readme with full documentation and examples for hooks
 * New: Add inline documentation for hooks
@@ -190,6 +190,9 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 
 
 == Upgrade Notice ==
+
+= 1.1 =
+Minor update: added 'c2c_post_author_ip_allowed' filter, modified initialization handling, noted compatibility through WP 5.1+, updated copyright date (2019), and more.
 
 = 1.0 =
 Initial public release.
