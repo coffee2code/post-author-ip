@@ -225,7 +225,7 @@ class c2c_PostAuthorIP {
 	 *
 	 * @param string  $new_status New post status.
 	 * @param string  $old_status Old post status.
-	 * @param WP_Post $post       Post object. 
+	 * @param WP_Post $post       Post object.
 	 */
 	public static function transition_post_status( $new_status, $old_status, $post ) {
 		// Only concerned with posts on creation.
