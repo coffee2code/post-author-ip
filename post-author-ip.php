@@ -93,8 +93,7 @@ class c2c_PostAuthorIP {
 		add_action( 'load-post.php',               array( __CLASS__, 'add_admin_css' )                 );
 		add_action( 'transition_post_status',      array( __CLASS__, 'transition_post_status' ), 10, 3 );
 		add_action( 'post_submitbox_misc_actions', array( __CLASS__, 'show_post_author_ip' )           );
-
-		self::register_meta();
+		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
 	}
 
 	/**
@@ -103,14 +102,25 @@ class c2c_PostAuthorIP {
 	 * @since 1.0
 	 */
 	public static function register_meta() {
-		register_meta( 'post', self::$meta_key, array(
+		$config = array(
 			'type'              => 'string',
 			'description'       => __( 'The IP address of the original post author', 'post-author-ip' ),
 			'single'            => true,
 			'sanitize_callback' => array( __CLASS__, 'sanitize_ip_address' ),
-			'auth_callback'     => '__return_false',
+			'auth_callback'     => function() {
+				return current_user_can( 'edit_posts' );
+			},
 			'show_in_rest'      => true,
-		) );
+		);
+
+		if ( function_exists( 'register_post_meta' ) ) {
+			// @todo Support non-"post" post types.
+			register_post_meta( 'post', self::$meta_key, $config );
+		}
+		// Pre WP 4.9.8 support
+		else {
+			register_meta( 'post', self::$meta_key, $config );
+		}
 	}
 
 	/**
