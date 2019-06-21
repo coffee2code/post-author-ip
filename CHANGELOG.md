@@ -6,6 +6,7 @@
 * Change: Update `register_meta()` with a proper auth_callback, `register_post_meta()` when possible, initialize on `init`
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+    * Fix: Fix unit tests related to post meta
 * Change: Note compatibility through WP 5.2+
 * Change: Add link to plugin's page in Plugin Directory to README.md
 * Change: Split paragraph in README.md's "Support" section into two

@@ -21,6 +21,8 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 		$_SERVER['REMOTE_ADDR'] = self::$default_ip;
 
+		c2c_PostAuthorIP::register_meta();
+
 		/** @var WP_REST_Server $wp_rest_server */
 		global $wp_rest_server;
 		$this->server = $wp_rest_server = new \WP_REST_Server;
@@ -168,7 +170,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 
 	public function test_meta_is_registered() {
-		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key ) );
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key, 'post' ) );
 	}
 
 	public function test_rest_post_request_includes_meta() {
