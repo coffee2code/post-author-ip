@@ -2,6 +2,8 @@
 
 A plugin for WordPress that records the IP address of the original post author when a post first gets created.
 
+This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/post-author-ip/
+
 
 ## Installation
 
