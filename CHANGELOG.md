@@ -3,6 +3,7 @@
 ## _(in-progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * Change: Note compatibility through WP 5.2+
+* Change: Split paragraph in README.md's "Support" section into two
 * Fix: Correct typo in GitHub URL
 
 ## 1.1 _(2019-02-20)_
