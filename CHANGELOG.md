@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* Change: Note compatibility through WP 5.2+
 
 ## 1.1 _(2019-02-20)_
 * New: Add new filter `c2c_post_author_ip_allowed` for per-post control of whether post author IP address should be saved
