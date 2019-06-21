@@ -188,6 +188,8 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 = 1.0 (2018-01-24) =
 * Initial public release
 
+_Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/post-author-ip/blob/master/CHANGELOG.md)._
+
 
 == Upgrade Notice ==
 
