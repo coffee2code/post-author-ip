@@ -2,6 +2,7 @@
 
 ## _(in-progress)_
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* New: Add .gitignore file
 * Change: Update `register_meta()` with a proper auth_callback, `register_post_meta()` when possible, initialize on `init`
 * Unit tests:
     * Change: Update unit test install script and bootstrap to use latest WP unit test repo
