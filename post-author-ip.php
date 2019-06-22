@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Post Author IP
- * Version:     1.1
+ * Version:     1.2
  * Plugin URI:  http://coffee2code.com/wp-plugins/post-author-ip/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package Post_Author_IP
  * @author  Scott Reilly
- * @version 1.1
+ * @version 1.2
  */
 
 /*
@@ -71,7 +71,7 @@ class c2c_PostAuthorIP {
 	 * @since 1.0
 	 */
 	public static function version() {
-		return '1.1';
+		return '1.2';
 	}
 
 	/**

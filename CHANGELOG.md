@@ -1,6 +1,6 @@
 # Changelog
 
-## _(in-progress)_
+## 1.2 _(2019-06-21)_
 * New: Add support for new block editor (aka Gutenberg)
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * New: Add .gitignore file

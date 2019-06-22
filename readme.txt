@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.2
-Stable tag: 1.1
+Stable tag: 1.2
 
 Records the IP address of the original post author when a post first gets created.
 
@@ -175,6 +175,19 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 
 == Changelog ==
 
+= 1.2 (2019-06-21) =
+* New: Add support for new block editor (aka Gutenberg)
+* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
+* New: Add .gitignore file
+* Change: Update `register_meta()` with a proper auth_callback, `register_post_meta()` when possible, initialize on `init`
+* Unit tests:
+    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
+    * Fix: Fix unit tests related to post meta
+* Change: Note compatibility through WP 5.2+
+* Change: Add link to plugin's page in Plugin Directory to README.md
+* Change: Split paragraph in README.md's "Support" section into two
+* Fix: Correct typo in GitHub URL
+
 = 1.1 (2019-02-20) =
 * New: Add new filter 'c2c_post_author_ip_allowed' for per-post control of whether post author IP address should be saved
 * New: Add 'Hooks' section to readme with full documentation and examples for hooks
@@ -196,6 +209,9 @@ _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/po
 
 
 == Upgrade Notice ==
+
+= 1.2 =
+Recommended feature update: added support for the new block editor (aka Gutenberg),
 
 = 1.1 =
 Minor update: added 'c2c_post_author_ip_allowed' filter, modified initialization handling, noted compatibility through WP 5.1+, updated copyright date (2019), and more.
