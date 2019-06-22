@@ -31,8 +31,8 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/post-author-ip/) | [P
 == Screenshots ==
 
 1. A screenshot of the admin post listing showing the added "Author IP" column. It demonstrates the mix of a post where the post author IP address was recorded, and posts where it wasn't (due to the plugin not being activated at the time).
-2. A screenshot of the Publish metabox for a post showing the post author's IP address.
-
+2. A screenshot of the Publish metabox for a post showing the post author's IP address (for versions of WordPress older than 5.0, or later if the new block editor aka Gutenberg is disabled)
+3. A screenshot of the block editor sidebar panel for a post showing the post author IP address (WP 5.0 and later)
 
 == Frequently Asked Questions ==
 
@@ -47,6 +47,10 @@ No, this plugin only records the IP address in use when the post was first saved
 = How do I see (or hide) the "Author IP" column in an admin listing of posts? =
 
 In the upper-right of the page is a "Screen Options" link that reveals a panel of options. In the "Columns" section, check (to show) or uncheck (to hide) the "Author IP" option.
+
+= Is this plugin compatible with the new block editor (aka Gutenberg)? =
+
+Yes.
 
 = Does this plugin include unit tests? =
 

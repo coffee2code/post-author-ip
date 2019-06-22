@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Add support for new block editor (aka Gutenberg)
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
 * New: Add .gitignore file
 * Change: Update `register_meta()` with a proper auth_callback, `register_post_meta()` when possible, initialize on `init`

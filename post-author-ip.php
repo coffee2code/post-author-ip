@@ -93,6 +93,7 @@ class c2c_PostAuthorIP {
 		add_action( 'load-post.php',               array( __CLASS__, 'add_admin_css' )                 );
 		add_action( 'transition_post_status',      array( __CLASS__, 'transition_post_status' ), 10, 3 );
 		add_action( 'post_submitbox_misc_actions', array( __CLASS__, 'show_post_author_ip' )           );
+		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_block_editor_assets' )   );
 		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
 	}
 
@@ -186,6 +187,57 @@ class c2c_PostAuthorIP {
 		echo '<div class="misc-pub-section curtime misc-pub-curtime">';
 		printf( __( 'Author IP address: <strong>%s</strong>', 'post-author-ip' ), $author_ip );
 		echo '</div>';
+	}
+
+	/**
+	 * Enqueues JavaScript and CSS for the block editor.
+	 *
+	 * @since 1.2.0
+	 */
+	public static function enqueue_block_editor_assets() {
+		global $post;
+
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+
+		if ( ! $post ) {
+			return;
+		}
+
+		$post_author_ip = self::get_post_author_ip( $post->ID );
+
+		if ( ! $post_author_ip ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'post-author-ip-js',
+			plugins_url( 'assets/js/editor.js', __FILE__ ),
+			array(
+				'wp-components',
+				'wp-data',
+				'wp-edit-post',
+				'wp-editor',
+				'wp-element',
+				'wp-i18n',
+				'wp-plugins',
+				'wp-api-fetch',
+			),
+			self::version(),
+			true
+		);
+
+		wp_enqueue_style(
+			'post-author-ip',
+			plugins_url( 'assets/css/editor.css', __FILE__ ),
+			array(),
+			self::version()
+		);
+
+		//if ( function_exists( 'wp_set_script_translations' ) ) {
+		//	wp_set_script_translations( 'post-author-ip-js', 'post-author-ip-js', \dirname( __DIR__ ) . '/languages' );
+		//}
 	}
 
 	/**

@@ -1,0 +1,67 @@
+{
+  "name": "post-author-ip",
+  "description": "Records the IP address of the original post author when a post first gets created",
+  "license": "GPL-2.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coffee2code/post-author-ip.git"
+  },
+  "homepage": "https://github.com/coffee2code/post-author-ip#readme",
+  "bugs": {
+    "url": "https://github.com/coffee2code/post-author-ip/issues"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@wordpress/babel-plugin-import-jsx-pragma": "^1.1.2",
+    "@wordpress/babel-preset-default": "^3.0.1",
+    "@wordpress/blocks": "^4.0.4",
+    "@wordpress/components": "^4.2.0",
+    "@wordpress/compose": "^2.0.5",
+    "@wordpress/data": "^2.1.4",
+    "@wordpress/edit-post": "^1.0.3",
+    "@wordpress/editor": "^5.0.0",
+    "@wordpress/element": "^2.5.0",
+    "@wordpress/i18n": "^3.5.0",
+    "@wordpress/plugins": "^2.4.0",
+    "autoprefixer": "^9.6.0",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "cssnano": "^4.0",
+    "jquery": "^3.4.0",
+    "js-yaml": "^3.13.1",
+    "mini-css-extract-plugin": "^0.4.3",
+    "postcss-loader": "^3.0",
+    "postcss-nested": "^4.1",
+    "raw-loader": "^0.5.1",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.4"
+  },
+  "dependencies": {},
+  "babel": {
+    "presets": [
+      "@wordpress/default"
+    ],
+    "plugins": [
+      [
+        "@wordpress/babel-plugin-import-jsx-pragma",
+        {
+          "scopeVariable": "createElement",
+          "source": "@wordpress/element",
+          "isDefault": false
+        }
+      ]
+    ]
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack -p",
+    "dev": "cross-env BABEL_ENV=default webpack --watch",
+    "makepot": "wp i18n make-pot .",
+    "release": "npm run build && npm run makepot"
+  }
+}
