@@ -116,6 +116,10 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->assertTrue( class_exists( 'c2c_PostAuthorIP' ) );
 	}
 
+	public function test_hooks_plugins_loaded() {
+		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_PostAuthorIP', 'init' ) ) );
+	}
+
 	public function test_meta_key_created_for_post_saved_as_draft() {
 		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
 
