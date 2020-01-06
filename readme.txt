@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 1.2
+Stable tag: 1.2.1
 
 Records the IP address of the original post author when a post first gets created.
 
@@ -175,6 +175,12 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 
 == Changelog ==
 
+= 1.2.1 (2020-01-06) =
+* New: Unit tests: Add test to verify plugin hooks `plugins_loaded` action to initialize itself
+* Change: Note compatibility through WP 5.3+
+* Change: Update JS dependencies
+* Change: Update copyright date (2020)
+
 = 1.2 (2019-06-21) =
 * New: Add support for new block editor (aka Gutenberg)
 * New: Add CHANGELOG.md file and move all but most recent changelog entries into it
@@ -202,13 +208,13 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 * Change: Update copyright date (2019)
 * Change: Update License URI to be HTTPS
 
-= 1.0 (2018-01-24) =
-* Initial public release
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/post-author-ip/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+Trivial update: noted compatibility through WP 5.3+, updated JS development dependencies, and updated copyright date (2020)
 
 = 1.2 =
 Recommended feature update: added support for the new block editor (aka Gutenberg),
