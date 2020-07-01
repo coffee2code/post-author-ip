@@ -1,9 +1,11 @@
 # Changelog
 
 ## __(in-progress)_
+* New: Add HTML5 compliance by omitting `type` attribute for `style` tag when the theme supports 'html5'
 * Change: Remove duplicate hook registration
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
+* Change: Tweak formatting of CSS styles
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
     * New: Add test for `admin_css()`

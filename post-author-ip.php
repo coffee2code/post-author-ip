@@ -161,9 +161,16 @@ class c2c_PostAuthorIP {
 	 * @since 1.0
 	 */
 	public static function admin_css() {
-		echo "<style type='text/css'>.fixed .column-" . self::$field . " {width:14%;}
-			#c2c-post-author-ip {font-weight:600;}
-			</style>\n";
+		$type_attr = current_theme_supports( 'html5' ) ? '' : ' type="text/css"';
+		$field = self::$field;
+
+echo <<<HTML
+<style{$type_attr}>
+	.fixed .column-{$field} { width: 14%; }
+	#c2c-post-author-ip { font-weight: 600; }
+</style>
+
+HTML;
 	}
 
 	/**
