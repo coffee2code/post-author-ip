@@ -50,14 +50,6 @@ if ( ! class_exists( 'c2c_PostAuthorIP' ) ) :
 class c2c_PostAuthorIP {
 
 	/**
-	 * Name for meta key used to store IP address of original post author.
-	 *
-	 * @access private
-	 * @var string
-	 */
-	private static $meta_key = 'c2c-post-author-ip';
-
-	/**
 	 * Field name for the post listing column.
 	 *
 	 * @access private
@@ -97,6 +89,39 @@ class c2c_PostAuthorIP {
 	}
 
 	/**
+	 * Returns the name of the meta key.
+	 *
+	 * @since 1.3
+	 * @uses apply_filters() Calls 'c2c_post_author_ip_meta_key' with default meta key name.
+	 *
+	 * @return string The meta key name. Default 'c2c-post-author-ip'.
+	 */
+	public static function get_meta_key_name() {
+		// Default value.
+		$meta_key_default = 'c2c-post-author-ip';
+
+		/**
+		 * Filters the name of the custom field key used by the plugin to store a
+		 * post's stealth publish status.
+		 *
+		 * @since 1.3
+		 *
+		 * @param string $meta_key The name of the meta key used for storing the
+		 *                         value of the post's post author IP address. If
+		 *                         blank, then default is used. Default is
+		 *                         'c2c-post-author-ip'.
+		 */
+		$meta_key = apply_filters( 'c2c_post_author_ip_meta_key', $meta_key_default );
+
+		// If a meta key name was not returned from the filter, use the default.
+		if ( ! $meta_key || ! is_string( $meta_key ) ) {
+			$meta_key = $meta_key_default;
+		}
+
+		return $meta_key;
+	}
+
+	/**
 	 * Registers the post meta field.
 	 *
 	 * @since 1.0
@@ -115,11 +140,11 @@ class c2c_PostAuthorIP {
 
 		if ( function_exists( 'register_post_meta' ) ) {
 			// @todo Support non-"post" post types.
-			register_post_meta( 'post', self::$meta_key, $config );
+			register_post_meta( 'post', self::get_meta_key_name(), $config );
 		}
 		// Pre WP 4.9.8 support
 		else {
-			register_meta( 'post', self::$meta_key, $config );
+			register_meta( 'post', self::get_meta_key_name(), $config );
 		}
 	}
 
@@ -133,7 +158,7 @@ class c2c_PostAuthorIP {
 	 * @return bool True if meta key is protected, else false.
 	 */
 	public static function is_protected_meta( $protected, $meta_key ) {
-		return $meta_key === self::$meta_key ? true : $protected;
+		return $meta_key === self::get_meta_key_name() ? true : $protected;
 	}
 
 	/**
@@ -365,7 +390,7 @@ HTML;
 			 */
 			$post_author_ip = apply_filters(
 				'c2c_get_post_author_ip',
-				get_post_meta( $post->ID, self::$meta_key, true ),
+				get_post_meta( $post->ID, self::get_meta_key_name(), true ),
 				$post->ID
 			);
 		}
@@ -397,7 +422,7 @@ HTML;
 			$can_store_post_author_id = (bool) apply_filters( 'c2c_post_author_ip_allowed', true, $post_id, $ip );
 
 			if ( $can_store_post_author_id ) {
-				update_post_meta( $post->ID, self::$meta_key, filter_var( $ip, FILTER_VALIDATE_IP ) );
+				update_post_meta( $post->ID, self::get_meta_key_name(), filter_var( $ip, FILTER_VALIDATE_IP ) );
 			}
 		}
 	}

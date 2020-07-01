@@ -2,6 +2,9 @@
 
 ## _(in-progress)_
 * New: Add `is_protected_meta()` to protect the meta key from being exposed as a custom field
+* New: Improve configurability and accessibility of meta key name
+  * New: Add `get_meta_key_name()` as getter for meta_key name
+  * New: Add filter `c2c_post_author_ip_meta_key` for customizing meta key name
 * New: Add HTML5 compliance by omitting `type` attribute for `style` tag when the theme supports 'html5'
 * Change: Remove duplicate hook registration
 * Change: Note compatibility through WP 5.4+
@@ -10,6 +13,7 @@
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
     * New: Add test for `admin_css()`
+    * Change: Use `get_meta_key_name()` to set default meta key used by tests
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 
 ## 1.2.1 _(2020-01-06)_

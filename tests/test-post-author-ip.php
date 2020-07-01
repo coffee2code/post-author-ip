@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or die();
 
 class Post_Author_IP_Test extends WP_UnitTestCase {
 
-	protected static $meta_key = 'c2c-post-author-ip';
+	protected static $meta_key = '';
 
 	protected static $default_ip = '192.168.2.30';
 	protected static $filter_ip  = '192.168.1.112';
@@ -22,6 +22,8 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$_SERVER['REMOTE_ADDR'] = self::$default_ip;
 
 		c2c_PostAuthorIP::register_meta();
+
+		self::$meta_key = c2c_PostAuthorIP::get_meta_key_name();
 
 		/** @var WP_REST_Server $wp_rest_server */
 		global $wp_rest_server;
@@ -194,6 +196,38 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 		$this->assertArrayHasKey( self::$meta_key, $meta );
 		$this->assertEquals( self::$default_ip, $meta[ self::$meta_key ] );
+	}
+
+	/*
+	 * get_meta_key_name()
+	 */
+
+	public function test_get_meta_key_name_default() {
+		$this->assertEquals( 'c2c-post-author-ip', c2c_PostAuthorIP::get_meta_key_name() );
+	}
+
+	/*
+	 * filter: c2c_post_author_ip_meta_key
+	 */
+
+	public function test_get_meta_key_name_with_valid_filter_value_c2c_post_author_ip_meta_key() {
+		add_filter( 'c2c_post_author_ip_meta_key', function ( $x ) { return 'new-key'; } );
+
+		$this->assertEquals( 'new-key', c2c_PostAuthorIP::get_meta_key_name() );
+	}
+
+	public function test_get_meta_key_name_with_invalid_filter_value_c2c_post_author_ip_meta_key() {
+		add_filter( 'c2c_post_author_ip_meta_key', '__return_empty_string' );
+
+		$this->test_get_meta_key_name_default();
+
+		add_filter( 'c2c_post_author_ip_meta_key', '__return_empty_array' );
+
+		$this->test_get_meta_key_name_default();
+
+		add_filter( 'c2c_post_author_ip_meta_key', '__return_zero' );
+
+		$this->test_get_meta_key_name_default();
 	}
 
 	/*
