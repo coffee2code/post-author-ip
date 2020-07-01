@@ -86,8 +86,6 @@ class c2c_PostAuthorIP {
 		// Register hooks.
 		add_filter( 'manage_posts_columns',        array( __CLASS__, 'add_post_column' )               );
 		add_action( 'manage_posts_custom_column',  array( __CLASS__, 'handle_column_data' ),     10, 2 );
-		add_filter( 'manage_pages_columns',        array( __CLASS__, 'add_post_column' )               );
-		add_action( 'manage_pages_custom_column',  array( __CLASS__, 'handle_column_data' ),     10, 2 );
 
 		add_action( 'load-edit.php',               array( __CLASS__, 'add_admin_css' )                 );
 		add_action( 'load-post.php',               array( __CLASS__, 'add_admin_css' )                 );
