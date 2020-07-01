@@ -13,6 +13,7 @@
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
     * New: Add test for `admin_css()`
+    * New: Add test for default hooks
     * Change: Use `get_meta_key_name()` to set default meta key used by tests
     * Change: Remove unnecessary unregistering of hooks in `tearDown()`
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests

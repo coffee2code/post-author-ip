@@ -39,6 +39,28 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 	//
 	//
+	// DATA PROVIDERS
+	//
+	//
+
+
+	public static function get_default_hooks() {
+		return array(
+			array( 'filter', 'manage_posts_columns',        'add_post_column'             ),
+			array( 'action', 'manage_posts_custom_column',  'handle_column_data'          ),
+			array( 'action', 'load-edit.php',               'add_admin_css'               ),
+			array( 'action', 'load-post.php',               'add_admin_css'               ),
+			array( 'action', 'transition_post_status',      'transition_post_status'      ),
+			array( 'action', 'post_submitbox_misc_actions', 'show_post_author_ip'         ),
+			array( 'action', 'enqueue_block_editor_assets', 'enqueue_block_editor_assets' ),
+			array( 'action', 'init',                        'register_meta'               ),
+			array( 'filter', 'is_protected_meta',           'is_protected_meta'           ),
+		);
+	}
+
+
+	//
+	//
 	// HELPER FUNCTIONS
 	//
 	//
@@ -115,6 +137,22 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 	public function test_hooks_plugins_loaded() {
 		$this->assertEquals( 10, has_action( 'plugins_loaded', array( 'c2c_PostAuthorIP', 'init' ) ) );
+	}
+
+	/**
+	 * @dataProvider get_default_hooks
+	 */
+	public function test_default_hooks( $hook_type, $hook, $function, $priority = 10, $class_method = true ) {
+		$callback = $class_method ? array( 'c2c_PostAuthorIP', $function ) : $function;
+
+		$prio = $hook_type === 'action' ?
+			has_action( $hook, $callback ) :
+			has_filter( $hook, $callback );
+
+		$this->assertNotFalse( $prio );
+		if ( $priority ) {
+			$this->assertEquals( $priority, $prio );
+		}
 	}
 
 	public function test_meta_key_created_for_post_saved_as_draft() {
