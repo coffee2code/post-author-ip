@@ -232,6 +232,25 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * register_meta()
+	 */
+
+	public function test_meta_key_is_registered() {
+		c2c_PostAuthorIP::register_meta();
+
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key, 'post' ) );
+		$this->assertFalse( registered_meta_key_exists( 'book', self::$meta_key, 'post' ) );
+	}
+
+	public function test_meta_key_is_not_registered_for_nonstandard_public_post_type() {
+		register_post_type( 'book', array( 'public' => true, 'name' => 'Book' )	);
+		c2c_PostAuthorIP::register_meta();
+
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key, 'post' ) );
+		$this->assertFalse( registered_meta_key_exists( 'post', self::$meta_key, 'book' ) );
+	}
+
+	/*
 	 * get_meta_key_name()
 	 */
 
