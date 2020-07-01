@@ -93,6 +93,7 @@ class c2c_PostAuthorIP {
 		add_action( 'post_submitbox_misc_actions', array( __CLASS__, 'show_post_author_ip' )           );
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_block_editor_assets' )   );
 		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
+		add_filter( 'is_protected_meta',           array( __CLASS__, 'is_protected_meta' ),      10, 2 );
 	}
 
 	/**
@@ -120,6 +121,19 @@ class c2c_PostAuthorIP {
 		else {
 			register_meta( 'post', self::$meta_key, $config );
 		}
+	}
+
+	/**
+	 * Hides the meta key from the custom field dropdown.
+	 *
+	 * @since 1.3
+	 *
+	 * @param  bool   $protected Is the meta key protected?
+	 * @param  string $meta_key  The meta key.
+	 * @return bool True if meta key is protected, else false.
+	 */
+	public static function is_protected_meta( $protected, $meta_key ) {
+		return $meta_key === self::$meta_key ? true : $protected;
 	}
 
 	/**

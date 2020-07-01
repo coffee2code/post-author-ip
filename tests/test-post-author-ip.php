@@ -197,6 +197,19 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * is_protected_meta()
+	 */
+
+	public function test_is_protected_meta_for_plugin_meta() {
+		$this->assertTrue( c2c_PostAuthorIP::is_protected_meta( false, self::$meta_key ) );
+	}
+
+	public function test_is_protected_meta_for_unrelated_meta() {
+		$this->assertFalse( c2c_PostAuthorIP::is_protected_meta( false, 'bogus' ) );
+		$this->assertTrue( c2c_PostAuthorIP::is_protected_meta( true, 'bogus' ) );
+	}
+
+	/*
 	 * admin_css()
 	 */
 

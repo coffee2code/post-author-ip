@@ -1,6 +1,7 @@
 # Changelog
 
-## __(in-progress)_
+## _(in-progress)_
+* New: Add `is_protected_meta()` to protect the meta key from being exposed as a custom field
 * New: Add HTML5 compliance by omitting `type` attribute for `style` tag when the theme supports 'html5'
 * Change: Remove duplicate hook registration
 * Change: Note compatibility through WP 5.4+
