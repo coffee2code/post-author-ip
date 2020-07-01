@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: post, author, IP, IP address, audit, auditing, tracking, users, coffee2code
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires at least: 4.6
+Requires at least: 4.9
 Tested up to: 5.4
 Stable tag: 1.2.1
 
