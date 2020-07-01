@@ -6,6 +6,7 @@
 * Change: Drop compatibility for version of WP older than 4.9
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
+    * New: Add test for `admin_css()`
     * Change: Use HTTPS for link to WP SVN repository in bin script for configuring unit tests
 
 ## 1.2.1 _(2020-01-06)_

@@ -196,6 +196,17 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->assertEquals( self::$default_ip, $meta[ self::$meta_key ] );
 	}
 
+	/*
+	 * admin_css()
+	 */
+
+	public function test_admin_css() {
+		$expected = "<style type='text/css'>.fixed .column-post_author_ip {width:14%;}
+			#c2c-post-author-ip {font-weight:600;}
+			</style>\n";
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', c2c_PostAuthorIP::admin_css() );
+	}
 
 	/*
 	 * set_post_author_ip()
