@@ -19,7 +19,7 @@ The admin listing of posts is amended with a new "Author IP" column that shows t
 The plugin is unable to provide IP address information for posts that were created prior to the use of this plugin.
 
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/post-author-ip/) | [Plugin Directory Page](https://wordpress.org/plugins/post-author-ip/) | [GitHub](https://github.com/coffee2code/post-author-ip/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](https://coffee2code.com/wp-plugins/post-author-ip/) | [Plugin Directory Page](https://wordpress.org/plugins/post-author-ip/) | [GitHub](https://github.com/coffee2code/post-author-ip/) | [Author Homepage](https://coffee2code.com)
 
 
 == Installation ==
