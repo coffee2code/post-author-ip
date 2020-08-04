@@ -17,7 +17,7 @@
 * Change: Tweak formatting of CSS styles
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
-    * New: Add tests for `admin_css()`, `enqueue_block_editor_assets()`, `register_meta()`
+    * New: Add tests for `admin_css()`, `enqueue_block_editor_assets()`, `include_column()`, `register_meta()`
     * New: Add test for default hooks
     * Change: Use `get_meta_key_name()` to set default meta key used by tests
     * Change: Remove unnecessary unregistering of hooks in `tearDown()`
