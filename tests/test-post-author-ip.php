@@ -498,6 +498,24 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * add_post_column()
+	 */
+
+	public function test_add_post_column() {
+		$expected = array( 'example' => 'something', self::$field => 'Author IP' );
+
+		$this->assertSame( $expected, c2c_PostAuthorIP::add_post_column( array( 'example' => 'something' ) ) );
+	}
+
+	public function test_add_post_column_when_column_not_showing() {
+		add_filter( 'c2c_show_post_author_ip_column', '__return_false' );
+
+		$expected = array( 'example' => 'something' );
+
+		$this->assertSame( $expected, c2c_PostAuthorIP::add_post_column( $expected ) );
+	}
+
+	/*
 	 * set_post_author_ip()
 	 */
 
