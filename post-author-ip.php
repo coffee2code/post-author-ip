@@ -89,6 +89,31 @@ class c2c_PostAuthorIP {
 	}
 
 	/**
+	 * Returns post types that will have their post author IP address recorded.
+	 *
+	 * By default, all public post types are included (except 'attachment').
+	 *
+	 * @since 3.0
+	 * @uses apply_filters() Calls 'c2c_post_author_ip_post_types' with post types.
+	 *
+	 * @return array
+	 */
+	public static function get_post_types() {
+		$post_types = get_post_types( array( 'public' => true ) );
+
+		unset( $post_types['attachment'] );
+
+		/**
+		 * Filters the post types that can be stealth published.
+		 *
+		 * @since 1.3
+		 *
+		 * @param array $post_types Array of post type names.
+		 */
+		return (array) apply_filters( 'c2c_post_author_ip_post_types', array_values( $post_types ) );
+	}
+
+	/**
 	 * Returns the name of the meta key.
 	 *
 	 * @since 1.3
@@ -139,8 +164,10 @@ class c2c_PostAuthorIP {
 		);
 
 		if ( function_exists( 'register_post_meta' ) ) {
-			// @todo Support non-"post" post types.
-			register_post_meta( 'post', self::get_meta_key_name(), $config );
+			foreach ( self::get_post_types() as $post_type ) {
+				register_post_meta( $post_type, self::get_meta_key_name(), $config );
+				add_filter( "rest_pre_insert_{$post_type}", array( __CLASS__, 'rest_pre_insert' ), 1, 2 );
+			}
 		}
 		// Pre WP 4.9.8 support
 		else {

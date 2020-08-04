@@ -1,6 +1,9 @@
 # Changelog
 
 ## _(in-progress)_
+* New: Enable plugin functionality for all public post types by default
+    * New: Add `get_post_types()` for retrieving post types
+    * New: Add filter `c2c_stealth_publish_post_types` to filter post types
 * New: Add `is_protected_meta()` to protect the meta key from being exposed as a custom field
 * New: Improve configurability and accessibility of meta key name
   * New: Add `get_meta_key_name()` as getter for meta_key name

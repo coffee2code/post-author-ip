@@ -232,6 +232,43 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * get_post_types()
+	 */
+
+	public function test_get_post_types( $extra_post_types = array() ) {
+		$expected = array_merge( array( 'post', 'page' ), $extra_post_types );
+
+		$this->assertEquals( $expected, c2c_PostAuthorIP::get_post_types() );
+	}
+
+	public function test_c2c_stealth_publish_post_types_with_custom_post_type() {
+		register_post_type( 'private', array( 'public' => false, 'name' => 'Private' ) );
+		register_post_type( 'book', array( 'public' => true, 'name' => 'Book' )	);
+
+		$this->test_get_post_types( array( 'book' ) );
+	}
+
+	/*
+	 * filter: c2c_post_author_ip_post_types
+	 */
+
+	 public function test_filter_c2c_post_author_ip_post_types() {
+		register_post_type( 'private', array( 'public' => false, 'name' => 'Private' ) );
+		register_post_type( 'book', array( 'public' => true, 'name' => 'Book' )	);
+
+		add_filter( 'c2c_post_author_ip_post_types', function ( $p ) {
+			// Add the non-public post type 'private'.
+			$p[] = 'private';
+			$p = array_flip( $p );
+			// Remove the public post type 'book'.
+			unset( $p[ 'book' ] );
+			return array_values( array_flip( $p ) );
+		} );
+
+		$this->test_get_post_types( array( 'private' ) );
+	}
+
+	/*
 	 * register_meta()
 	 */
 
@@ -242,12 +279,12 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->assertFalse( registered_meta_key_exists( 'book', self::$meta_key, 'post' ) );
 	}
 
-	public function test_meta_key_is_not_registered_for_nonstandard_public_post_type() {
+	public function test_meta_key_is_registered_for_nonstandard_public_post_type() {
 		register_post_type( 'book', array( 'public' => true, 'name' => 'Book' )	);
 		c2c_PostAuthorIP::register_meta();
 
 		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key, 'post' ) );
-		$this->assertFalse( registered_meta_key_exists( 'post', self::$meta_key, 'book' ) );
+		$this->assertTrue( registered_meta_key_exists( 'post', self::$meta_key, 'book' ) );
 	}
 
 	/*
