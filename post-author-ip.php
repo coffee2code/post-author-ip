@@ -254,7 +254,7 @@ class c2c_PostAuthorIP {
 
 echo <<<HTML
 <style{$type_attr}>
-	.fixed .column-{$field} { width: 14%; }
+	.fixed .column-{$field} { width: 7rem; }
 	#c2c-post-author-ip { font-weight: 600; }
 </style>
 

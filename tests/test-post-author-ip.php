@@ -376,7 +376,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		}
 
 		$expected = "<style{$attr}>
-	.fixed .column-post_author_ip { width: 14%; }
+	.fixed .column-post_author_ip { width: 7rem; }
 	#c2c-post-author-ip { font-weight: 600; }
 </style>\n";
 
