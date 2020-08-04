@@ -438,6 +438,32 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * show_post_author_ip()
+	 */
+
+	public function test_show_post_author_ip() {
+		global $post;
+		$ip = '192.168.1.222';
+		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post->ID, $ip );
+
+		$expected = '<div class="misc-pub-section curtime misc-pub-curtime">';
+		$expected .= 'Author IP address: <strong><span id="c2c-post-author-ip">' . $ip . '</span></strong>';
+		$expected .= '</div>';
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', c2c_PostAuthorIP::show_post_author_ip() );
+	}
+
+	public function test_show_post_author_ip_for_post_without_saved_value() {
+		// Unset the REMOTE_ADDR since the post creation below will fire a transition and store IP address.
+		$_SERVER['REMOTE_ADDR'] = '';
+
+		$GLOBALS['post'] = $this->factory->post->create_and_get( array( 'post_status' => 'publish' ) );
+
+		$this->expectOutputRegex( '~^$~', c2c_PostAuthorIP::show_post_author_ip() );
+	}
+
+	/*
 	 * enqueue_block_editor_assets()
 	 */
 
