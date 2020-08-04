@@ -50,7 +50,7 @@ In the upper-right of the page is a "Screen Options" link that reveals a panel o
 
 = Is this plugin compatible with the new block editor (aka Gutenberg)? =
 
-Yes.
+Yes. This plugin is compatible with the block editor as well as the classic editor.
 
 = Does this plugin include unit tests? =
 
