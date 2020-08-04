@@ -21,6 +21,7 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		$_SERVER['REMOTE_ADDR'] = self::$default_ip;
+		$GLOBALS['post'] = '';
 
 		c2c_PostAuthorIP::register_meta();
 
@@ -387,6 +388,40 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		remove_theme_support( 'html5' );
 
 		$this->test_admin_css( ' type="text/css"', false );
+	}
+
+	/*
+	 * enqueue_block_editor_assets()
+	 */
+
+	public function test_enqueue_block_editor_assets_not_enqueued_by_default() {
+		c2c_PostAuthorIP::enqueue_block_editor_assets();
+
+		$this->assertFalse( wp_script_is( 'post-author-ip-js', 'enqueued' ) );
+		$this->assertFalse( wp_style_is( 'post-author-ip', 'enqueued' ) );
+	}
+
+	public function test_enqueue_block_editor_assets_for_non_applicable_post() {
+		global $post;
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+		$post = get_post( $post_id );
+
+		c2c_PostAuthorIP::enqueue_block_editor_assets();
+
+		$this->assertTrue( wp_script_is( 'post-author-ip-js', 'enqueued' ) );
+		$this->assertTrue( wp_style_is( 'post-author-ip', 'enqueued' ) );
+	}
+
+	public function test_enqueue_block_editor_assets_for_applicable_post() {
+		global $post;
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post_id, '192.168.1.225' );
+		$post = get_post( $post_id );
+
+		c2c_PostAuthorIP::enqueue_block_editor_assets();
+
+		$this->assertTrue( wp_script_is( 'post-author-ip-js', 'enqueued' ) );
+		$this->assertTrue( wp_style_is( 'post-author-ip', 'enqueued' ) );
 	}
 
 	/*
