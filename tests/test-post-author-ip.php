@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) or die();
 
 class Post_Author_IP_Test extends WP_UnitTestCase {
 
+	protected static $field    = 'post_author_ip';
 	protected static $meta_key = '';
 
 	protected static $default_ip = '192.168.2.30';
@@ -317,6 +318,39 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		add_filter( 'c2c_post_author_ip_meta_key', '__return_zero' );
 
 		$this->test_get_meta_key_name_default();
+	}
+
+	/*
+	 * rest_pre_insert()
+	 */
+
+	public function test_rest_pre_insert_does_not_set_object_when_no_stealth_publish() {
+		$obj = (object) array( 'post_name' => 'Test' );
+		$response = array( 'meta' => array( 'something' => '1' ) );
+
+		$result = c2c_PostAuthorIP::rest_pre_insert( $obj, $response );
+
+		$this->assertFalse( property_exists( $result, self::$field ) );
+	}
+
+	public function test_rest_pre_insert_sets_obj_property_to_value_of_1() {
+		$obj = (object) array( 'post_name' => 'Test' );
+		$response = array( 'meta' => array( self::$meta_key => '1' ) );
+
+		$result = c2c_PostAuthorIP::rest_pre_insert( $obj, $response );
+
+		$this->assertTrue( property_exists( $result, self::$field ) );
+		$this->assertEquals( '1', $result->{self::$field} );
+	}
+
+	public function test_rest_pre_insert_sets_obj_property_to_value_of_0() {
+		$obj = (object) array( 'post_name' => 'Test' );
+		$response = array( 'meta' => array( self::$meta_key => '0' ) );
+
+		$result = c2c_PostAuthorIP::rest_pre_insert( $obj, $response );
+
+		$this->assertTrue( property_exists( $result, self::$field ) );
+		$this->assertEquals( '0', $result->{self::$field} );
 	}
 
 	/*

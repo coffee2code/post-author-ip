@@ -8,6 +8,7 @@
 * New: Improve configurability and accessibility of meta key name
   * New: Add `get_meta_key_name()` as getter for meta_key name
   * New: Add filter `c2c_post_author_ip_meta_key` for customizing meta key name
+* New: Add `rest_pre_insert()` to add meta key as first-class object property prior to REST-initiated update
 * New: Add HTML5 compliance by omitting `type` attribute for `style` tag when the theme supports 'html5'
 * Change: Remove duplicate hook registration
 * Change: Note compatibility through WP 5.4+

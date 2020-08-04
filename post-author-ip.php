@@ -176,6 +176,28 @@ class c2c_PostAuthorIP {
 	}
 
 	/**
+	 * Adds meta key as first-class object property prior to REST-initiated
+	 * post insertion to ensure value gets handled.
+	 *
+	 * @since 1.3
+	 *
+	 * @param stdClass        $prepared_post An object representing a single
+	 *                                       post prepared for inserting or
+	 *                                       updating the database.
+	 * @param WP_REST_Request $request       Request object.
+	 * @return stdClass Single post prepared for inserting/updating the database.
+	 */
+	public static function rest_pre_insert( $prepared_post, $request ) {
+		$meta_key_name = self::get_meta_key_name();
+		// Make meta key a first-class object property.
+		if ( isset( $request['meta'][ $meta_key_name ] ) ) {
+			$prepared_post->{self::$field} = $request['meta'][ $meta_key_name ];
+		}
+
+		return $prepared_post;
+	}
+
+	/**
 	 * Hides the meta key from the custom field dropdown.
 	 *
 	 * @since 1.3
