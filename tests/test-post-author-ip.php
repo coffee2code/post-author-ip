@@ -398,6 +398,23 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * add_admin_css()
+	 */
+
+	public function test_add_admin_css() {
+		c2c_PostAuthorIP::add_admin_css();
+
+		$this->assertEquals( 10, has_action( 'admin_head', array( 'c2c_PostAuthorIP', 'admin_css' ) ) );
+	}
+
+	public function test_add_admin_css_when_column_not_shown() {
+		add_filter( 'c2c_show_post_author_ip_column', '__return_false' );
+		c2c_PostAuthorIP::add_admin_css();
+
+		$this->assertFalse( has_action( 'admin_head', array( 'c2c_PostAuthorIP', 'admin_css' ) ) );
+	}
+
+	/*
 	 * admin_css()
 	 */
 
