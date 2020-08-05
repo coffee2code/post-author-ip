@@ -516,6 +516,42 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * handle_column_data()
+	 */
+
+	public function test_handle_column_data() {
+		$ip = '192.168.1.225';
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post_id, $ip );
+
+		$expected = '<span>' . $ip . '</span>';
+
+		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', c2c_PostAuthorIP::handle_column_data( self::$field, $post_id ) );
+	}
+
+	public function test_handle_column_data_when_column_not_showing() {
+		add_filter( 'c2c_show_post_author_ip_column', '__return_false' );
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+
+		$this->expectOutputRegex( '~^$~', c2c_PostAuthorIP::handle_column_data( self::$field, $post_id ) );
+	}
+
+	public function test_handle_column_data_for_different_column() {
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+
+		$this->expectOutputRegex( '~^$~', c2c_PostAuthorIP::handle_column_data( 'title', $post_id ) );
+	}
+
+	public function test_handle_column_data_for_post_without_ip_saved() {
+		// Unset the REMOTE_ADDR since the post creation below will fire a transition and store IP address.
+		$_SERVER['REMOTE_ADDR'] = '';
+
+		$post_id = $this->factory->post->create( array( 'post_status' => 'draft' ) );
+
+		$this->expectOutputRegex( '~^$~', c2c_PostAuthorIP::handle_column_data( self::$field, $post_id ) );
+	}
+
+	/*
 	 * set_post_author_ip()
 	 */
 
