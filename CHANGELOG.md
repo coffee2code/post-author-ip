@@ -15,6 +15,7 @@
 * Change: Remove duplicate hook registration
 * Change: Note compatibility through WP 5.4+
 * Change: Drop compatibility for version of WP older than 4.9
+* Change: Update JS dependencies
 * Change: Tweak formatting of CSS styles
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
