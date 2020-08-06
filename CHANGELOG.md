@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 1.3 _(2020-08-06)_
+
+### Highlights:
+
+This recommended release adds support for all public post types, reduces column width, improves meta key handling, expands unit testing, adds a TODO.md file, updates compatibility to be WP 4.9 through 5.4+, and more internally.
+
+### Details:
+
 * New: Enable plugin functionality for all public post types by default
     * New: Add `get_post_types()` for retrieving post types
     * New: Add filter `c2c_stealth_publish_post_types` to filter post types
