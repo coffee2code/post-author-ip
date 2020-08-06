@@ -552,6 +552,50 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * transition_post_status()
+	 */
+
+	public function test_transition_post_status() {
+		// Unset the REMOTE_ADDR since the post creation below will fire a transition and store IP address.
+		$_SERVER['REMOTE_ADDR'] = '';
+
+		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
+
+		$_SERVER['REMOTE_ADDR'] = self::$default_ip;
+
+		c2c_PostAuthorIP::transition_post_status( 'publish', 'new', $post );
+
+		$this->assertEquals( self::$default_ip, c2c_PostAuthorIP::get_post_author_ip( $post->ID ) );
+	}
+
+	public function test_transition_post_status_when_old_status_is_not_new() {
+		// Unset the REMOTE_ADDR since the post creation below will fire a transition and store IP address.
+		$_SERVER['REMOTE_ADDR'] = '';
+
+		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
+
+		$_SERVER['REMOTE_ADDR'] = self::$default_ip;
+
+		c2c_PostAuthorIP::transition_post_status( 'publish', 'draft', $post );
+
+		$this->assertEmpty( c2c_PostAuthorIP::get_post_author_ip( $post->ID ) );
+	}
+
+	public function test_transition_post_status_when_post_is_revision() {
+		// Unset the REMOTE_ADDR since the post creation below will fire a transition and store IP address.
+		$_SERVER['REMOTE_ADDR'] = '';
+
+		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft', 'post_type' => 'revision' ) );
+
+		$_SERVER['REMOTE_ADDR'] = self::$default_ip;
+
+		c2c_PostAuthorIP::transition_post_status( 'publish', 'new', $post );
+
+		$this->assertEmpty( c2c_PostAuthorIP::get_post_author_ip( $post->ID ) );
+	}
+
+
+	/*
 	 * set_post_author_ip()
 	 */
 

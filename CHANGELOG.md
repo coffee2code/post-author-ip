@@ -19,7 +19,8 @@
 * Change: Tweak formatting of CSS styles
 * Change: Update links to coffee2code.com to be HTTPS
 * Unit tests:
-    * New: Add tests for `add_admin_css()`, `admin_css()`, `add_post_column()`, `enqueue_block_editor_assets()`, `handle_column_data()`, `include_column()`, `register_meta()`, `show_post_author_ip()`
+    * New: Add tests for `add_admin_css()`, `admin_css()`, `add_post_column()`, `enqueue_block_editor_assets()`, `handle_column_data()`
+    * New: Add tests for `include_column()`, `register_meta()`, `show_post_author_ip()`, `transition_post_status()`
     * New: Add test for default hooks
     * Change: Use `get_meta_key_name()` to set default meta key used by tests
     * Change: Remove unnecessary unregistering of hooks in `tearDown()`
