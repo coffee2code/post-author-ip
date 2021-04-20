@@ -5,7 +5,7 @@ Tags: post, author, IP, IP address, audit, auditing, tracking, users, coffee2cod
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.7
 Stable tag: 1.3
 
 Records the IP address of the original post author when a post first gets created.
