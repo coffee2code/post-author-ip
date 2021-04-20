@@ -1,6 +1,7 @@
 # Changelog
 
 ## _(in-progress)_
+* Change: Remove check for theme support of HTML5 since that isn't relevant to admin
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 

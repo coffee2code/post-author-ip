@@ -418,23 +418,13 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	 * admin_css()
 	 */
 
-	public function test_admin_css( $attr = '', $support_html5 = true ) {
-		if ( $support_html5 ) {
-			add_theme_support( 'html5' );
-		}
-
-		$expected = "<style{$attr}>
+	public function test_admin_css() {
+		$expected = "<style>
 	.fixed .column-post_author_ip { width: 7rem; }
 	#c2c-post-author-ip { font-weight: 600; }
 </style>\n";
 
 		$this->expectOutputRegex( '~^' . preg_quote( $expected ) . '$~', c2c_PostAuthorIP::admin_css() );
-	}
-
-	public function test_admin_css_with_no_html5_support() {
-		remove_theme_support( 'html5' );
-
-		$this->test_admin_css( ' type="text/css"', false );
 	}
 
 	/*
