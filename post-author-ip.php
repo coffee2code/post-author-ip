@@ -82,6 +82,7 @@ class c2c_PostAuthorIP {
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_block_editor_assets' )   );
 		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
 		add_filter( 'is_protected_meta',           array( __CLASS__, 'is_protected_meta' ),      10, 2 );
+		add_filter( 'wp_privacy_personal_data_erasers', array( __CLASS__, 'register_privacy_erasers' ) );
 	}
 
 	/**
@@ -469,6 +470,61 @@ HTML;
 				update_post_meta( $post->ID, self::get_meta_key_name(), filter_var( $ip, FILTER_VALIDATE_IP ) );
 			}
 		}
+	}
+
+	/**
+	 * Registers all data erasers.
+	 *
+	 * @since 1.4
+	 *
+	 * @param array $exporters An array of callable erasers of personal data.
+	 * @return array
+	 */
+	public static function register_privacy_erasers( $erasers ) {
+		$erasers['post-author-ip'] = array(
+			'eraser_friendly_name' => __( 'Post Author IP Plugin', 'post-author-ip' ),
+			'callback'             => array( __CLASS__, 'remove_ip_address_from_posts_by_email' ),
+		);
+
+		return $erasers;
+	}
+
+	/**
+	 * Removes any stored IP addresses associated with a post authored by the
+	 * user with the given email address.
+	 *
+	 * @since 1.4
+	 *
+	 * @param string $email_address Email address being removed.
+	 * @param int    $page          Page number. Default 1.
+	 * @return array
+	 */
+	public static function remove_ip_address_from_posts_by_email( $email_address, $page = 1 ) {
+		global $wpdb;
+
+		$items_removed = false;
+		$removed_count = 0;
+
+		$user = get_user_by( 'email', $email_address );
+
+		if ( $user ) {
+			$removed_count = $wpdb->query( $wpdb->prepare(
+				"DELETE pm FROM $wpdb->postmeta AS pm INNER JOIN $wpdb->posts AS p ON p.ID = pm.post_id WHERE p.post_author = %d AND pm.meta_key = %s",
+				$user->ID,
+				self::get_meta_key_name()
+			) );
+		}
+
+		if ( $removed_count ) {
+			$items_removed = true;
+		}
+
+		return array(
+			'items_removed'  => $items_removed,
+			'items_retained' => false,
+			'messages'       => array(),
+			'done'           => true,
+		);
 	}
 
 } // end c2c_PostAuthorIP

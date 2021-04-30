@@ -671,4 +671,101 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->assertEmpty( c2c_PostAuthorIP::get_post_author_ip( $post_id ) );
 	}
 
+	/*
+	 * register_privacy_erasers()
+	 */
+
+	public function test_register_privacy_erasers() {
+		$erasures = array(
+			'example-plugin' => array(
+				'eraser_friendly_name' => 'Example Plugin',
+				'callback'             => '',
+			),
+		);
+
+		$result = c2c_PostAuthorIP::register_privacy_erasers( $erasures );
+
+		$this->assertArrayHasKey( 'post-author-ip', $result );
+		$this->assertArrayHasKey( 'example-plugin', $result );
+		$this->assertArrayHasKey( 'eraser_friendly_name', $result['post-author-ip'] );
+		$this->assertEquals( 'Post Author IP Plugin', $result['post-author-ip']['eraser_friendly_name'] );
+		$this->assertArrayHasKey( 'callback', $result['post-author-ip'] );
+		$this->assertEquals( array( 'c2c_PostAuthorIP', 'remove_ip_address_from_posts_by_email' ), $result['post-author-ip']['callback'] );
+	}
+
+	/*
+	 * remove_ip_address_from_posts_by_email()
+	 */
+
+	public function test_remove_ip_address_from_posts_by_email_with_no_posts() {
+		$expected = array(
+			'items_removed'  => 0,
+			'items_retained' => false,
+			'messages'       => array(),
+			'done'           => true,
+		);
+
+		$this->assertEquals( $expected, c2c_PostAuthorIP::remove_ip_address_from_posts_by_email( 'user@example.com' ) );
+	}
+
+	public function test_remove_ip_address_from_posts_by_email_with_no_matching_user() {
+		$user1_id = $this->factory->user->create( array( 'user_email' => 'user1@example.com' ) );
+		$post1_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $user1_id ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post1_id, '127.0.0.121' );
+
+		$expected = array(
+			'items_removed'  => 0,
+			'items_retained' => false,
+			'messages'       => array(),
+			'done'           => true,
+		);
+
+		$this->assertEquals( $expected, c2c_PostAuthorIP::remove_ip_address_from_posts_by_email( 'user@example.com' ) );
+		$this->assertEquals( '127.0.0.121', c2c_PostAuthorIP::get_post_author_ip( $post1_id ) );
+	}
+
+	public function test_remove_ip_address_from_posts_by_email_with_user_but_no_matching_posts() {
+		$user1_id = $this->factory->user->create( array( 'user_email' => 'user1@example.com' ) );
+		$post1_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $user1_id ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post1_id, '127.0.0.121' );
+
+		$user2_id = $this->factory->user->create( array( 'user_email' => 'user@example.com' ) );
+
+		$expected = array(
+			'items_removed'  => 0,
+			'items_retained' => false,
+			'messages'       => array(),
+			'done'           => true,
+		);
+
+		$this->assertEquals( $expected, c2c_PostAuthorIP::remove_ip_address_from_posts_by_email( 'user@example.com' ) );
+		$this->assertEquals( '127.0.0.121', c2c_PostAuthorIP::get_post_author_ip( $post1_id ) );
+	}
+
+	public function test_remove_ip_address_from_posts_by_email() {
+		$user1_id = $this->factory->user->create( array( 'user_email' => 'user1@example.com' ) );
+		$post1_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $user1_id ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post1_id, '127.0.0.121' );
+
+		$user2_id = $this->factory->user->create( array( 'user_email' => 'user2@example.com' ) );
+		$post2_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $user2_id ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post2_id, '127.0.0.125' );
+
+		$post3_id = $this->factory->post->create( array( 'post_status' => 'publish', 'post_author' => $user1_id ) );
+		c2c_PostAuthorIP::set_post_author_ip( $post3_id, '127.0.0.121' );
+
+		$expected = array(
+			'items_removed'  => 2,
+			'items_retained' => false,
+			'messages'       => array(),
+			'done'           => true,
+		);
+
+		$this->assertEquals( $expected, c2c_PostAuthorIP::remove_ip_address_from_posts_by_email( 'user1@example.com' ) );
+
+		$this->assertEmpty( c2c_PostAuthorIP::get_post_author_ip( $post1_id ) );
+		$this->assertEquals( '127.0.0.125', c2c_PostAuthorIP::get_post_author_ip( $post2_id ) );
+		$this->assertEmpty( c2c_PostAuthorIP::get_post_author_ip( $post3_id ) );
+	}
+
 }
