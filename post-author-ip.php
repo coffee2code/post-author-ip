@@ -83,6 +83,7 @@ class c2c_PostAuthorIP {
 		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
 		add_filter( 'is_protected_meta',           array( __CLASS__, 'is_protected_meta' ),      10, 2 );
 		add_filter( 'wp_privacy_personal_data_erasers', array( __CLASS__, 'register_privacy_erasers' ) );
+		add_filter( 'wp_privacy_personal_data_exporters', array( __CLASS__, 'register_data_exporter' ) );
 	}
 
 	/**
@@ -524,6 +525,80 @@ HTML;
 			'items_retained' => false,
 			'messages'       => array(),
 			'done'           => true,
+		);
+	}
+
+	/**
+	 * Registers data exporter.
+	 *
+	 * @since 1.4
+	 *
+	 * @param array $exporters
+	 * @return array
+	 */
+	public static function register_data_exporter( $exporters ) {
+		$exporters['post-author-ip'] = array(
+			'exporter_friendly_name' => __( 'Post Author IP Plugin', 'post-author-ip' ),
+			'callback'               => array( __CLASS__, 'export_user_data_by_email' ),
+		);
+
+		return $exporters;
+	}
+
+	/**
+	 * Export user meta for a user using the supplied email.
+	 *
+	 * @since 1.4
+	 *
+	 * @param string $email_address Email address being removed.
+	 * @param int    $page          Page number. Default 1.
+	 * @return array
+	 */
+	public static function export_user_data_by_email( $email_address, $page = 1 ) {
+		$number = 500; // Limit to avoid timeouts.
+		$page   = (int) $page;
+		$posts  = $export_items = array();
+
+		$user = get_user_by( 'email', $email_address );
+
+		if ( $user ) {
+			// Get posts made by the user that have a post author IP assigned.
+			$posts = get_posts( array(
+				'author'         => $user->ID,
+				'meta_key'       => self::get_meta_key_name(),
+				'paged'          => $page,
+				'posts_per_page' => $number,
+			) );
+
+			foreach ( (array) $posts as $post ) {
+				$ip_address = get_post_meta( $post->ID, self::get_meta_key_name(), true );
+
+				if ( $ip_address ) {
+					$item_id = "post-{$post->ID}";
+					$group_id = 'posts';
+
+					$data = array(
+						array(
+							'name'  => __( 'Post Author IP', 'post-author-ip' ),
+							'value' => $ip_address,
+						),
+					);
+
+					$export_items[] = array(
+						'group_id'    => $group_id,
+						'item_id'     => $item_id,
+						'data'        => $data,
+					);
+				}
+			}
+		}
+
+		// Have all matching posts been included?
+		$done = count( $posts ) < $number;
+
+		return array(
+			'data' => $export_items,
+			'done' => $done,
 		);
 	}
 
