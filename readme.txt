@@ -52,6 +52,10 @@ In the upper-right of the page is a "Screen Options" link that reveals a panel o
 
 Yes. This plugin is compatible with the block editor as well as the classic editor.
 
+= Is this plugin GDPR-compliant? =
+
+Yes. The IP address stored for authors on the posts they created will be exported on data export requests and deleted for data erasure requests.
+
 = Does this plugin include unit tests? =
 
 Yes.

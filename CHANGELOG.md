@@ -5,6 +5,7 @@
   * New: Add `register_privacy_erasers()` and `remove_ip_address_from_posts_by_email()` for handling data erasure requests
   * New: Add `register_data_exporter()` and `export_user_data_by_email()` for handling data export requests
   * New: Add `add_privacy_policy_content()` for outputting suggested privacy policy snippet
+  * New: Add FAQ entry denoting GDPR compliance
 * Change: Remove check for theme support of HTML5 since that isn't relevant to admin
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
