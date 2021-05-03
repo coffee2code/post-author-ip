@@ -10,6 +10,7 @@
 * Change: Update copyright date (2021)
 * Unit tests:
     * Change: Restructure unit test directories and files into `tests/` top-level directory
+    * Change: Remove 'test-' prefix from unit test files
 
 ## 1.3 _(2020-08-06)_
 
