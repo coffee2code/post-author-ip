@@ -854,11 +854,9 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 	public function test_add_privacy_policy_content() {
 		$this->test_turn_on_admin();
 
-		// Not ideal, but it's a way to set conditions for
-		// `wp_add_privacy_policy_content()` to work.
-		ob_start();
-		@do_action( 'admin_init' );
-		ob_end_clean();
+		// Not ideal, but it's a quick way to simulate 'admin_init' having been
+		// fired so `wp_add_privacy_policy_content()` works.
+		$GLOBALS['wp_actions']['admin_init'] = 1;
 
 		c2c_PostAuthorIP::add_privacy_policy_content();
 
@@ -869,8 +867,9 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 
 HTML;
 
-		$this->assertEquals( 'Post Author IP Plugin', $policy_text[1]['plugin_name'] );
-		$this->assertEquals( $expected, $policy_text[1]['policy_text'] );
+		$this->assertNotEmpty( $policy_text );
+		$this->assertEquals( 'Post Author IP Plugin', $policy_text[0]['plugin_name'] );
+		$this->assertEquals( $expected, $policy_text[0]['policy_text'] );
 	}
 
 }
