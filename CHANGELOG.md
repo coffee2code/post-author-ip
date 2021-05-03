@@ -11,6 +11,7 @@
 * Unit tests:
     * Change: Restructure unit test directories and files into `tests/` top-level directory
     * Change: Remove 'test-' prefix from unit test files
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
 
 ## 1.3 _(2020-08-06)_
 
