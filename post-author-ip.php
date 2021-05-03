@@ -82,6 +82,9 @@ class c2c_PostAuthorIP {
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_block_editor_assets' )   );
 		add_action( 'init',                        array( __CLASS__, 'register_meta' ) );
 		add_filter( 'is_protected_meta',           array( __CLASS__, 'is_protected_meta' ),      10, 2 );
+
+		/* Privacy */
+		add_action( 'admin_init',                         array( __CLASS__, 'add_privacy_policy_content' ) );
 		add_filter( 'wp_privacy_personal_data_erasers', array( __CLASS__, 'register_privacy_erasers' ) );
 		add_filter( 'wp_privacy_personal_data_exporters', array( __CLASS__, 'register_data_exporter' ) );
 	}
@@ -471,6 +474,23 @@ HTML;
 				update_post_meta( $post->ID, self::get_meta_key_name(), filter_var( $ip, FILTER_VALIDATE_IP ) );
 			}
 		}
+	}
+
+	/**
+	 * Adds a privacy policy statement.
+	 *
+	 * @since 1.4
+	 */
+	public static function add_privacy_policy_content() {
+		if ( ! function_exists( 'wp_add_privacy_policy_content' ) ) {
+			return;
+		}
+
+		$content = '<h2 class="privacy-policy-tutorial">' . __( 'Post Author IP Plugin privacy policy content.', 'post-author-ip' ) . '</h2>'
+			. '<strong class="privacy-policy-tutorial">' . __( 'Suggested Text:', 'post-author-ip' ) . '</strong> '
+			. __( "If you create a post on the site, your IP address at the time of the post's creation will be stored as post metadata.", 'post-author-ip' );
+
+		wp_add_privacy_policy_content( __( 'Post Author IP Plugin', 'post-author-ip' ), wp_kses_post( wpautop( $content, false ) ) );
 	}
 
 	/**

@@ -835,4 +835,42 @@ class Post_Author_IP_Test extends WP_UnitTestCase {
 		$this->assertEquals( $expected, c2c_PostAuthorIP::export_user_data_by_email( 'user1@example.com' ) );
 	}
 
+	/***
+	 * ALL ADMIN AREA RELATED TESTS NEED TO FOLLOW THIS FUNCTION
+	 *****/
+
+	public function test_turn_on_admin() {
+		if ( ! defined( 'WP_ADMIN' ) ) {
+			define( 'WP_ADMIN', true );
+		}
+
+		$this->assertTrue( is_admin() );
+	}
+
+	/*
+	 * add_privacy_policy_content()
+	 */
+
+	public function test_add_privacy_policy_content() {
+		$this->test_turn_on_admin();
+
+		// Not ideal, but it's a way to set conditions for
+		// `wp_add_privacy_policy_content()` to work.
+		ob_start();
+		@do_action( 'admin_init' );
+		ob_end_clean();
+
+		c2c_PostAuthorIP::add_privacy_policy_content();
+
+		$policy_text = WP_Privacy_Policy_Content::get_suggested_policy_text();
+		$expected = <<<HTML
+<h2 class="privacy-policy-tutorial">Post Author IP Plugin privacy policy content.</h2>
+<p><strong class="privacy-policy-tutorial">Suggested Text:</strong> If you create a post on the site, your IP address at the time of the post's creation will be stored as post metadata.</p>
+
+HTML;
+
+		$this->assertEquals( 'Post Author IP Plugin', $policy_text[1]['plugin_name'] );
+		$this->assertEquals( $expected, $policy_text[1]['policy_text'] );
+	}
+
 }
