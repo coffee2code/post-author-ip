@@ -14,6 +14,7 @@
     * Change: Remove 'test-' prefix from unit test files
     * Change: In bootstrap, store path to plugin file constant
     * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* New: Add a few more possible TODO items
 
 ## 1.3 _(2020-08-06)_
 

@@ -10,5 +10,9 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 * Allow filtering table by IP address to support starts-with partial IP address, e.g. ?c2c-post-author-ip=192.168.1 (facilitated by a search field somewhere)
   See: https://wordpress.org/support/topic/search-posts-by-author-ip/
 * Who can see IP? If any author, maybe restrict to admins by default and/or special caps and/or filter
+* Delete associated post author IP addresses when deleting a user?
+  * If so, consider adding a hook to allow overriding this behavior
+    * Maybe hook the text to replace the IP address that gets "deleted", default to "(user deleted)". If a label is provided, then replace the IP address with the label. If true is provided, delete with no label. If false, then don't delete, retaining IP address.
+* Add button for admins to use to "Delete associated post author IP addresses?" on profiles for post authors?
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/post-author-ip/) or on [GitHub](https://github.com/coffee2code/post-author-ip/) as an issue or PR).
