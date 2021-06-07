@@ -10,58 +10,11 @@
   "bugs": {
     "url": "https://github.com/coffee2code/post-author-ip/issues"
   },
-  "engines": {
-    "node": ">=10"
-  },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "@wordpress/babel-plugin-import-jsx-pragma": "^1.1.2",
-    "@wordpress/babel-preset-default": "^3.0.1",
-    "@wordpress/blocks": "^4.0.4",
-    "@wordpress/components": "^4.2.0",
-    "@wordpress/compose": "^2.0.5",
-    "@wordpress/data": "^2.1.4",
-    "@wordpress/edit-post": "^1.0.3",
-    "@wordpress/editor": "^5.0.0",
-    "@wordpress/element": "^2.16.0",
-    "@wordpress/i18n": "^3.14.0",
-    "@wordpress/plugins": "^2.20.3",
-    "autoprefixer": "^9.8.6",
-    "babel-loader": "^8.1.0",
-    "cross-env": "^5.2.1",
-    "css-loader": "^1.0.0",
-    "cssnano": "^4.0",
-    "jquery": "^3.5.0",
-    "js-yaml": "^3.14.0",
-    "mini-css-extract-plugin": "^0.4.3",
-    "postcss-loader": "^3.0",
-    "postcss-nested": "^4.2.3",
-    "raw-loader": "^0.5.1",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
-  },
-  "dependencies": {},
-  "babel": {
-    "presets": [
-      "@wordpress/default"
-    ],
-    "plugins": [
-      [
-        "@wordpress/babel-plugin-import-jsx-pragma",
-        {
-          "scopeVariable": "createElement",
-          "source": "@wordpress/element",
-          "isDefault": false
-        }
-      ]
-    ]
+    "@wordpress/scripts": "16.1.1"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack -p",
-    "dev": "cross-env BABEL_ENV=default webpack --watch",
-    "makepot": "wp i18n make-pot .",
-    "release": "npm run build && npm run makepot"
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
   }
 }

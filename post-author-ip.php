@@ -304,21 +304,13 @@ HTML;
 			return;
 		}
 
+		$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php' );
+
 		wp_enqueue_script(
 			'post-author-ip-js',
-			plugins_url( 'assets/js/editor.js', __FILE__ ),
-			array(
-				'wp-components',
-				'wp-data',
-				'wp-edit-post',
-				'wp-editor',
-				'wp-element',
-				'wp-i18n',
-				'wp-plugins',
-				'wp-api-fetch',
-			),
-			self::version(),
-			true
+			plugins_url( 'build/index.js', __FILE__ ),
+			$asset_file['dependencies'],
+			$asset_file['version']
 		);
 
 		wp_enqueue_style(
