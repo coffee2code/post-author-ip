@@ -8,6 +8,7 @@
   * New: Add FAQ entry denoting GDPR compliance
 * Change: Modernize block editor implementation and update JS dependencies
 * Change: Remove check for theme support of HTML5 since that isn't relevant to admin
+* Change: Enable script translations
 * Change: Note compatibility through WP 5.7+
 * Change: Update copyright date (2021)
 * Unit tests:

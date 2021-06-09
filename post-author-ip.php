@@ -320,9 +320,9 @@ HTML;
 			self::version()
 		);
 
-		//if ( function_exists( 'wp_set_script_translations' ) ) {
-		//	wp_set_script_translations( 'post-author-ip-js', 'post-author-ip-js', \dirname( __DIR__ ) . '/languages' );
-		//}
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'post-author-ip-js', 'post-author-ip' );
+		}
 	}
 
 	/**
