@@ -1,6 +1,13 @@
 # Changelog
 
-## _(in-progress)_
+## 1.4 _(2021-06-09)_
+
+### Highlights:
+
+This recommended release adds GDPR compliance for data export and erasure, modernizes block editor implementation, restructures unit test files, and notes compatibility through WP 5.7.
+
+### Details:
+
 * New: Add GDPR compliance for data export and erasure
   * New: Add `register_privacy_erasers()` and `remove_ip_address_from_posts_by_email()` for handling data erasure requests
   * New: Add `register_data_exporter()` and `export_user_data_by_email()` for handling data export requests

@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 1.3
+Stable tag: 1.4
 
 Records the IP address of the original post author when a post first gets created.
 
@@ -179,10 +179,34 @@ add_filter( 'c2c_post_author_ip_allowed', 'disable_localhost_post_author_ips', 1
 
 == Changelog ==
 
+= 1.4 (2021-06-09) =
+Highlights:
+
+This recommended release adds GDPR compliance for data export and erasure, modernizes block editor implementation, restructures unit test files, and notes compatibility through WP 5.7.
+
+Details:
+
+* New: Add GDPR compliance for data export and erasure
+  * New: Add `register_privacy_erasers()` and `remove_ip_address_from_posts_by_email()` for handling data erasure requests
+  * New: Add `register_data_exporter()` and `export_user_data_by_email()` for handling data export requests
+  * New: Add `add_privacy_policy_content()` for outputting suggested privacy policy snippet
+  * New: Add FAQ entry denoting GDPR compliance
+* Change: Modernize block editor implementation and update JS dependencies
+* Change: Remove check for theme support of HTML5 since that isn't relevant to admin
+* Change: Enable script translations
+* Change: Note compatibility through WP 5.7+
+* Change: Update copyright date (2021)
+* Unit tests:
+    * Change: Restructure unit test directories and files into `tests/` top-level directory
+    * Change: Remove 'test-' prefix from unit test files
+    * Change: In bootstrap, store path to plugin file constant
+    * Change: Rename `phpunit.xml` to `phpunit.xml.dist` per best practices
+* New: Add a few more possible TODO items
+
 = 1.3 (2020-08-06) =
 Highlights:
 
-* This recommended release adds support for all public post types, reduces column width, improves meta key handling, expands unit testing, adds a TODO.md file, updates compatibility to be WP 4.9 through 5.4+, and more internally.
+This recommended release adds support for all public post types, reduces column width, improves meta key handling, expands unit testing, adds a TODO.md file, updates compatibility to be WP 4.9 through 5.4+, and more internally.
 
 Details:
 
@@ -217,23 +241,13 @@ Details:
 * Change: Update JS dependencies
 * Change: Update copyright date (2020)
 
-= 1.2 (2019-06-21) =
-* New: Add support for new block editor (aka Gutenberg)
-* New: Add CHANGELOG.md file and move all but most recent changelog entries into it
-* New: Add .gitignore file
-* Change: Update `register_meta()` with a proper auth_callback, `register_post_meta()` when possible, initialize on `init`
-* Unit tests:
-    * Change: Update unit test install script and bootstrap to use latest WP unit test repo
-    * Fix: Fix unit tests related to post meta
-* Change: Note compatibility through WP 5.2+
-* Change: Add link to plugin's page in Plugin Directory to README.md
-* Change: Split paragraph in README.md's "Support" section into two
-* Fix: Correct typo in GitHub URL
-
 _Full changelog is available in [CHANGELOG.md](https://github.com/coffee2code/post-author-ip/blob/master/CHANGELOG.md)._
 
 
 == Upgrade Notice ==
+
+= 1.4 =
+Recommended update: added GDPR compliance for data export and erasure, modernized block editor implementation, restructured unit test files, noted compatibility through WP 5.7, and updated copyright date (2021).
 
 = 1.3 =
 Recommended update: added support for all public post types, reduced column width, improved meta key handling, expanded unit testing, added TODO.md file, updated compatibility to be WP 4.9 through 5.4+, and more internally.
