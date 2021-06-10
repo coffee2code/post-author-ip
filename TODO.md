@@ -13,6 +13,9 @@ The following list comprises ideas, suggestions, and known issues, all of which 
 * Delete associated post author IP addresses when deleting a user?
   * If so, consider adding a hook to allow overriding this behavior
     * Maybe hook the text to replace the IP address that gets "deleted", default to "(user deleted)". If a label is provided, then replace the IP address with the label. If true is provided, delete with no label. If false, then don't delete, retaining IP address.
+  * Can be a plugin setting
 * Add button for admins to use to "Delete associated post author IP addresses?" on profiles for post authors?
+* Allow IP addresses to get linked to some IP address lookup service whereby the IP address gets passed. A setting would be necessary to define the link format (e.g. "https://ip-address-lookup.example.com/?ip=%IP%") where "%IP%" represents the IP address and must be provided for the link to be considered valid. Maybe suggest one or two, but don't default to any.
+* Consider opt-in into an IP address info service that can be used to provide info about IP address in a popup.
 
 Feel free to make your own suggestions or champion for something already on the list (via the [plugin's support forum on WordPress.org](https://wordpress.org/support/plugin/post-author-ip/) or on [GitHub](https://github.com/coffee2code/post-author-ip/) as an issue or PR).
